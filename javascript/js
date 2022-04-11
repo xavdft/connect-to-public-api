@@ -1,0 +1,89 @@
+// declare variables
+let employees = [];
+const usersUrl = `https://randomuser.me/api/?results=12&inc=name,picture,email,location,phone,dob&noinfo&nat=US`;
+const gridContainer = document.querySelector('.grid-container');
+const overlay = document.querySelector('.overlay');
+const modalClose = document.querySelector('.modal-close');
+const modalContent = document.querySelector('.modal-content');
+
+// fetch our API
+fetch(usersUrl)
+  .then((res) => res.json())
+  .then((data) => data.results)
+  .then(displayEmployees)
+  .catch((err) => console.log(err));
+
+// generate the HTML to display data from API
+  function displayEmployees(data) {
+    employees = data;
+    let employeesHTML = '';
+
+    employees.forEach((employee, index) => {
+      let avatar = employee.picture;
+      let firstName = employee.name.first;
+      let lastName = employee.name.last;
+      let email = employee.email;
+      let city = employee.location.city;
+      let state = employee.location.state;
+
+      employeesHTML += `
+        <div class='card' index='${index}'>
+        <img class='avatar' src='${avatar.large}'/>
+          <div class='employee-info'>
+            <h2 class='name'>${firstName} ${lastName}</h2>
+            <p class='email'>${email}</p>
+            <p class='address'>${city}, ${state}</p>
+          </div>
+        </div>
+      `
+    });
+    gridContainer.insertAdjacentHTML('beforeend', employeesHTML);
+  }
+
+// function that generates the modal window for a closer view of employees
+  function generateModal(index) {
+    let employee = employees[index];
+
+    let avatar = employee.picture;
+    let firstName = employee.name.first;
+    let lastName = employee.name.last;
+    let email = employee.email;
+    let street = employee.location.street;
+    let city = employee.location.city
+    let state = employee.location.state;
+    let postal = employee.location.postcode;
+    let phone = employee.phone;
+    let date = new Date(employee.dob.date);
+
+    const modalHTML = `
+    <img class='avatar' src='${avatar.large}'/>
+    <div class='contact-info'>
+      <h2 class='name'>${firstName} ${lastName}</h2>
+      <p class='email'>${email}</p>
+      <p class='address'>${city}</p>
+       <hr>
+      <p class='phone'>${phone}</p>
+      <p class='full-address'>${street.number} ${street.name}, ${city}, ${state}, ${postal}</p>
+      <p class="birthdate">Birthday: ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+      </div>
+    `;
+    overlay.classList.remove('hidden')
+    modalContent.insertAdjacentHTML('beforeend', modalHTML)
+  };
+
+// callback for the event listener below, if an employee's card is clicked, modal window appears
+  function employeeSelect (e) {
+    if (e.target !== gridContainer) {
+      const card = e.target.closest('.card');
+      const index = card.getAttribute('index');
+      generateModal(index);
+    }
+  }
+
+gridContainer.addEventListener('click', employeeSelect)
+
+// event listener for closing out modal window once the X button is clicked
+modalClose.addEventListener('click', (e) => {
+  overlay.classList.add('hidden');
+  modalContent.innerHTML = '';
+});

@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+
+:root {
+  --main-gray: #4a4a4a;
+  --light-gray: #b9b9b9;
+  --background-color: #ebebeb;
+  --light-background-color: #f4f4f4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  width: 100%;
+  min-height: 100%;
+  line-height: 1;
+}
+
+body,
+input,
+button {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+body {
+  background: var(--background-color);
+  position: relative;
+  min-height: 100vh;
+}
+
+hr {
+  margin: 1.5rem;
+  border: none;
+  height: 2px;
+  background-color: #ebebeb;
+}
+
+.wrapper {
+  padding: 2rem;
+}
+
+.title {
+  color: var(--main-gray);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card {
+  background-color: var(--light-background-color);
+  border: 1px solid var(--light-gray);
+  border-radius: 3px;
+  display: flex;
+  padding: 1rem;
+  flex: 1 1 30%;
+  gap: 1rem;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 100px;
+}
+
+.name {
+  color: #000;
+  font-size: 1.2rem;
+}
+
+.text-container {
+  color: var(--main-gray);
+  font-size: 0.825rem;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal {
+  background-color: #fff;
+  border: 1px solid var(--light-gray);
+  border-radius: 3px;
+  margin: 15% auto auto;
+  padding: 1rem;
+  position: relative;
+  text-align: center;
+  width: 375px;
+}
+
+.modal .avatar {
+  margin-top: 1rem;
+  border-radius: 50%;
+  width: 150px;
+}
+
+.modal-close {
+  border: none;
+  border-radius: 3px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  background-color: #363636;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+  padding-top: 0.1rem;
+}
+
+.modal-content {
+  margin-bottom: 3rem;
+}
+
+.modal-content .text-container {
+  font-size: 1rem;
+}
+
+.hidden {
+  display: none;
+}
